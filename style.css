@@ -1,0 +1,280 @@
+/* Estilo padrão (modo escuro) */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', 'Proxima Nova', Arial, Helvetica, sans-serif;
+  background-color: #111; /* fundo escuro */
+  color: #fff; /* texto branco */
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+header {
+  background: linear-gradient(135deg, #d8929c, #6b4c9a, #243c96);
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #ffcc00;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Título */
+header h1 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #ffffff !important; /* força branco */
+  margin: 0;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Botão moderno (Dark Mode) */
+.modern-btn {
+  background: linear-gradient(135deg, #ffcc00, #ff8c00);
+  border: none;
+  border-radius: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 18px;
+  color: #fff;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.modern-btn:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, #ffdf40, #ff9e30);
+}
+
+.modern-btn:active {
+  transform: scale(0.92);
+  background: linear-gradient(135deg, #ffb300, #e67e00);
+}
+
+/* Botão Comprar */
+.btncomprar {
+  background: linear-gradient(135deg, #6b4c9a, #243c96);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 12px;
+  margin-left: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  display: inline-block;
+}
+
+/* Hover */
+.btncomprar:hover {
+  background: linear-gradient(135deg, #8a5cc2, #3450c6);
+  transform: translateY(-3px);
+}
+
+/* Clique → muda cor do fundo e do texto */
+.btncomprar:active {
+  transform: scale(0.92);
+  background: linear-gradient(135deg, #ffcc00, #ff8c00); /* muda para amarelo/laranja */
+  color: #000; /* texto preto ao clicar */
+}
+
+.container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.titulo {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.autor {
+  font-size: 14px;
+  color: #aaa;
+  margin-bottom: 30px;
+  transition: color 0.3s ease;
+}
+
+.letra p {
+  margin: 10px 0;
+  font-size: 18px;
+}
+
+.letra .highlight {
+  background-color: #2a2344;
+  display: inline-block;
+  padding: 3px 5px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Ícone do botão dark mode */
+#darkModeToggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  outline: none;
+}
+
+.icon {
+  position: relative;
+  width: 24px;
+  height: 24px;
+}
+
+.moon, .sun {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Moon icon */
+.moon {
+  background: #fff;
+  box-shadow: -6px 0 0 0 #121212;
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Sun icon - simples círculo com raios */
+.sun {
+  background: #ffcc00;
+  opacity: 0;
+  transform: scale(0);
+  box-shadow:
+    0 -8px 0 0 #ffcc00,
+    5.6px -5.6px 0 0 #ffcc00,
+    8px 0 0 0 #ffcc00,
+    5.6px 5.6px 0 0 #ffcc00,
+    0 8px 0 0 #ffcc00,
+    -5.6px 5.6px 0 0 #ffcc00,
+    -8px 0 0 0 #ffcc00,
+    -5.6px -5.6px 0 0 #ffcc00;
+}
+
+/* Modo claro */
+body:not(.dark-mode) {
+  background-color: #fff;
+  color: #222;
+}
+
+body:not(.dark-mode) header {
+  background-color: #f5f5f5;
+  border-bottom-color: #cc9900; /* amarelo mais suave */
+}
+
+body:not(.dark-mode) header h1 {
+  color: #cc9900;
+}
+
+body:not(.dark-mode) .container {
+  background-color: #fafafa;
+}
+
+body:not(.dark-mode) .autor {
+  color: #555;
+}
+
+body:not(.dark-mode) .letra .highlight {
+  background-color: #ddd;
+  color: #444;
+}
+
+/* Dark mode ativo */
+body.dark-mode {
+  background-color: #111;
+  color: #fff;
+}
+
+body.dark-mode header {
+  background-color: #000;
+  border-bottom-color: #ffcc00;
+}
+
+body.dark-mode header h1 {
+  color: #ffcc00;
+}
+
+body.dark-mode .container {
+  background-color: #1a1a1a;
+}
+
+body.dark-mode .autor {
+  color: #aaa;
+}
+
+body.dark-mode .letra .highlight {
+  background-color: #2a2344;
+  color: #fff;
+}
+
+/* Transição dos ícones no botão */
+body.dark-mode .moon {
+  opacity: 0;
+  transform: scale(0);
+}
+
+body.dark-mode .sun {
+  opacity: 1;
+  transform: scale(1);
+}
+
+body:not(.dark-mode) .moon {
+  opacity: 1;
+  transform: scale(1);
+}
+
+body:not(.dark-mode) .sun {
+  opacity: 0;
+  transform: scale(0);
+}
+
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.author-photo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #f1c131a7; /* borda moderna */
+  box-shadow: 0 0 8px rgba(190, 189, 189, 0.6);
+  object-fit: cover;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Ícones sociais */
+.social-icon {
+  font-size: 22px;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.social-icon.instagram:hover {
+  color: #e4405f; /* Instagram pink */
+  transform: scale(1.2);
+}
+
+.social-icon.youtube:hover {
+  color: #ff0000; /* YouTube red */
+  transform: scale(1.2);
+}
