@@ -1,7 +1,14 @@
+/* Reset e correção de overflow */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { overflow-x: hidden; }
+
 /* Estilo padrão (modo escuro) */
 body {
   margin: 0;
-  padding: 0;
+  padding: 80px 0 0;   /* empurra o conteúdo para baixo do header fixo */
   font-family: 'Montserrat', 'Proxima Nova', Arial, Helvetica, sans-serif;
   background-color: #111; /* fundo escuro */
   color: #fff; /* texto branco */
@@ -9,47 +16,80 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* HEADER FIXO */
 header {
+  position: fixed;        /* fixa o header */
+  top: 0;
+  left: 0;
+  right: 0;               /* impede estouro lateral por causa do padding */
+  z-index: 1000;
   background: linear-gradient(135deg, #d8929c, #6b4c9a, #243c96);
-  padding: 15px 20px;
+  padding: 12px 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
+  flex-wrap: nowrap;        /* não deixa quebrar linha */
   border-bottom: 2px solid #ffcc00;
   transition: background-color 0.3s ease, border-color 0.3s ease;
+  overflow: hidden;         /* evita quebra estranha */
 }
 
 /* Título */
 header h1 {
   font-size: 22px;
   font-weight: 600;
-  color: #ffffff !important; /* força branco */
+  color: #ffffff !important;
   margin: 0;
   letter-spacing: 1px;
   text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
-/* Botão moderno (Dark Mode) */
-.modern-btn {
-  background: linear-gradient(135deg, #ffcc00, #ff8c00);
-  border: none;
-  border-radius: 12px;
-  padding: 10px 14px;
-  cursor: pointer;
-  font-size: 18px;
+/* Grupos do header */
+.header-left,
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;          /* permite encolher corretamente */
+}
+.header-left { flex: 1 1 auto; }   /* ocupa espaço restante */
+.header-right { 
+  flex: 0 0 auto;        /* não deixa quebrar */
+  white-space: nowrap;   /* mantém ícones na mesma linha */
+}
+
+/* Foto autor */
+.author-photo {
+  width: 50px;
+  height: 50px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 2px solid #f1c131a7;
+  box-shadow: 0 0 8px rgba(190, 189, 189, 0.6);
+  object-fit: cover;
+}
+
+/* Ícones sociais */
+.social-icon {
+  font-size: 22px;
   color: #fff;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  display: flex;              /* alinhamento consistente */
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;      /* remove linha sublinhada */
+  line-height: 1;             /* remove espaço extra abaixo */
 }
 
-.modern-btn:hover {
-  transform: translateY(-3px);
-  background: linear-gradient(135deg, #ffdf40, #ff9e30);
+.social-icon.instagram:hover {
+  color: #e4405f;
+  transform: scale(1.2);
 }
 
-.modern-btn:active {
-  transform: scale(0.92);
-  background: linear-gradient(135deg, #ffb300, #e67e00);
+.social-icon.youtube:hover {
+  color: #ff0000;
+  transform: scale(1.2);
 }
 
 /* Botão Comprar */
@@ -58,27 +98,43 @@ header h1 {
   color: #fff;
   padding: 10px 16px;
   border-radius: 12px;
-  margin-left: 10px;
   text-decoration: none;
   font-weight: 600;
   transition: all 0.3s ease;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
   display: inline-block;
+  white-space: nowrap;    /* evita quebrar o texto do botão */
+  margin-bottom: 20px;    /* afasta do h1 do container */
 }
 
-/* Hover */
 .btncomprar:hover {
   background: linear-gradient(135deg, #8a5cc2, #3450c6);
   transform: translateY(-3px);
 }
 
-/* Clique → muda cor do fundo e do texto */
 .btncomprar:active {
   transform: scale(0.92);
-  background: linear-gradient(135deg, #ffcc00, #ff8c00); /* muda para amarelo/laranja */
-  color: #000; /* texto preto ao clicar */
+  background: linear-gradient(135deg, #ffcc00, #ff8c00);
+  color: #000;
 }
 
+/* Alinhamento no container */
+.container .btncomprar {
+  display: block;          /* ocupa a linha toda no mobile */
+  text-align: center;
+}
+
+/* Desktop: botão alinhado à direita */
+@media (min-width: 721px) {
+  .container .btncomprar {
+    display: inline-block;  /* volta a ser inline */
+    float: right;           /* joga para a direita */
+    margin-bottom: 20px;
+    margin-left: 20px;      /* respiro do texto */
+  }
+}
+
+/* Conteúdo */
 .container {
   max-width: 700px;
   margin: 40px auto;
@@ -102,7 +158,6 @@ header h1 {
 .letra p {
   margin: 10px 0;
   font-size: 18px;
-  
 }
 
 .letra {
@@ -126,57 +181,6 @@ header h1 {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Ícone do botão dark mode */
-#darkModeToggle {
-  background: none;
-  border: none;
-  cursor: pointer;
-  width: 40px;
-  height: 40px;
-  position: relative;
-  outline: none;
-}
-
-.icon {
-  position: relative;
-  width: 24px;
-  height: 24px;
-}
-
-.moon, .sun {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-/* Moon icon */
-.moon {
-  background: #fff;
-  box-shadow: -6px 0 0 0 #121212;
-  opacity: 1;
-  transform: scale(1);
-}
-
-/* Sun icon - simples círculo com raios */
-.sun {
-  background: #ffcc00;
-  opacity: 0;
-  transform: scale(0);
-  box-shadow:
-    0 -8px 0 0 #ffcc00,
-    5.6px -5.6px 0 0 #ffcc00,
-    8px 0 0 0 #ffcc00,
-    5.6px 5.6px 0 0 #ffcc00,
-    0 8px 0 0 #ffcc00,
-    -5.6px 5.6px 0 0 #ffcc00,
-    -8px 0 0 0 #ffcc00,
-    -5.6px -5.6px 0 0 #ffcc00;
-}
-
 /* Modo claro */
 body:not(.dark-mode) {
   background-color: #fff;
@@ -185,111 +189,31 @@ body:not(.dark-mode) {
 
 body:not(.dark-mode) header {
   background-color: #f5f5f5;
-  border-bottom-color: #cc9900; /* amarelo mais suave */
+  border-bottom-color: #cc9900;
 }
 
-body:not(.dark-mode) header h1 {
-  color: #cc9900;
-}
-
-body:not(.dark-mode) .container {
-  background-color: #fafafa;
-}
-
-body:not(.dark-mode) .autor {
-  color: #555;
-}
-
-body:not(.dark-mode) .letra .highlight {
-  background-color: #ddd;
-  color: #444;
-}
+body:not(.dark-mode) header h1 { color: #cc9900; }
+body:not(.dark-mode) .container { background-color: #fafafa; }
+body:not(.dark-mode) .autor { color: #555; }
+body:not(.dark-mode) .letra .highlight { background-color: #ddd; color: #444; }
 
 /* Dark mode ativo */
-body.dark-mode {
-  background-color: #111;
-  color: #fff;
+body.dark-mode { background-color: #111; color: #fff; }
+body.dark-mode header { background-color: #000; border-bottom-color: #ffcc00; }
+body.dark-mode header h1 { color: #ffcc00; }
+body.dark-mode .container { background-color: #1a1a1a; }
+body.dark-mode .autor { color: #aaa; }
+body.dark-mode .letra .highlight { background-color: #2a2344; color: #fff; }
+
+/* Responsividade */
+@media (max-width: 720px) {
+  header { padding: 10px 12px; gap: 10px; }
+  .author-photo { width: 44px; height: 44px; }
+  header h1 { font-size: 20px; }
 }
 
-body.dark-mode header {
-  background-color: #000;
-  border-bottom-color: #ffcc00;
-}
-
-body.dark-mode header h1 {
-  color: #ffcc00;
-}
-
-body.dark-mode .container {
-  background-color: #1a1a1a;
-}
-
-body.dark-mode .autor {
-  color: #aaa;
-}
-
-body.dark-mode .letra .highlight {
-  background-color: #2a2344;
-  color: #fff;
-}
-
-/* Transição dos ícones no botão */
-body.dark-mode .moon {
-  opacity: 0;
-  transform: scale(0);
-}
-
-body.dark-mode .sun {
-  opacity: 1;
-  transform: scale(1);
-}
-
-body:not(.dark-mode) .moon {
-  opacity: 1;
-  transform: scale(1);
-}
-
-body:not(.dark-mode) .sun {
-  opacity: 0;
-  transform: scale(0);
-}
-
-
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.author-photo {
-  width: 50px;
-  height: 50px;
-  aspect-ratio: 1 / 1;   /* garante proporção quadrada */
-  border-radius: 50%;    /* mantém círculo perfeito */
-  border: 2px solid #f1c131a7; /* borda moderna */
-  box-shadow: 0 0 8px rgba(190, 189, 189, 0.6);
-  object-fit: cover;     /* recorta a imagem sem distorcer */
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-/* Ícones sociais */
-.social-icon {
-  font-size: 22px;
-  color: #fff;
-  transition: all 0.3s ease;
-}
-
-.social-icon.instagram:hover {
-  color: #e4405f; /* Instagram pink */
-  transform: scale(1.2);
-}
-
-.social-icon.youtube:hover {
-  color: #ff0000; /* YouTube red */
-  transform: scale(1.2);
+@media (max-width: 520px) {
+  header { padding: 10px; }
+  .header-right { gap: 16px; justify-content: flex-end; } /* ícones alinhados à direita */
+  .btncomprar { width: 100%; text-align: center; }
 }
